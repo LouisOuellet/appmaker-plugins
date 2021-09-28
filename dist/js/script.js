@@ -28,7 +28,7 @@ API.Plugins.plugins = {
 								html += '</div>';
 								html += '<div class="input-group-append">';
 									html += '<div class="input-group-text p-1">';
-										if((API.Contents.Plugins[plugin].status)||(API.Contents.Plugins[plugin].status == "true")){
+										if((API.Contents.Settings.plugins[plugin].status)||(API.Contents.Settings.plugins[plugin].status == "true")){
 											html += '<input type="checkbox" data-key="'+plugin+'" name="'+plugin+'" title="'+API.Helper.ucfirst(API.Helper.clean(plugin))+'" checked>';
 										} else {
 											html += '<input type="checkbox" data-key="'+plugin+'" name="'+plugin+'" title="'+API.Helper.ucfirst(API.Helper.clean(plugin))+'">';
