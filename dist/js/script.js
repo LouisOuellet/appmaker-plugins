@@ -68,7 +68,7 @@ API.Plugins.plugins = {
 				for(var [plugin, status] of Object.entries(API.Contents.Plugins)){
 					if(API.Helper.isSet(API,['Contents','Settings','plugins',plugin,'build'])){
 						$.ajax({
-			        url: API.Contents.Plugins[plugin].repository.host.raw+API.Contents.Plugins[plugin].repository.name+'/blob/'+API.Contents.Plugins[plugin].repository.branch+API.Contents.Plugins[plugin].repository.manifest,
+			        url: API.Contents.Plugins[plugin].repository.host.raw+API.Contents.Plugins[plugin].repository.name+'/'+API.Contents.Plugins[plugin].repository.branch+API.Contents.Plugins[plugin].repository.manifest,
 			        success: function(data){
 		            alert(data);
 			        }
