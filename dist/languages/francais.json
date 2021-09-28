@@ -1,4 +1,6 @@
 {
 		"plugins": "extensions",
-		"Plugins": "Extensions"
+		"Plugins": "Extensions",
+		"Plugin was activated": "Extension active",
+		"Plugin was deactivated": "Extension desactive"
 }

@@ -1,4 +1,6 @@
 {
 		"plugins": "plugins",
-		"Plugins": "Plugins"
+		"Plugins": "Plugins",
+		"Plugin was activated": "Plugin was activated",
+		"Plugin was deactivated": "Plugin was deactivated"
 }
