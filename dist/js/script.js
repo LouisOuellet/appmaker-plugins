@@ -72,6 +72,9 @@ API.Plugins.plugins = {
 								html += '<div class="input-group-append">';
 									html += '<button type="button" data-key="'+plugin+'" data-action="update" class="btn btn-success"><i class="fas fa-file-download mr-1"></i>'+API.Contents.Language['Update']+'</button>';
 								html += '</div>';
+								console.log($('[data-key='+plugin+'][data-action="uninstall"]'));
+								console.log(plugin);
+								console.log(manifest);
 								$('[data-key='+plugin+'][data-action="uninstall"]').parent().before(html);
 			        }
 						})
