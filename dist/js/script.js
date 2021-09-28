@@ -66,13 +66,14 @@ API.Plugins.plugins = {
 					if(API.Helper.isSet(API,['Contents','Settings','plugins',plugin,'build'])){
 						$.ajax({
 			        url: API.Contents.Plugins[plugin].repository.host.raw+API.Contents.Plugins[plugin].repository.name+'/'+API.Contents.Plugins[plugin].repository.branch+API.Contents.Plugins[plugin].repository.manifest,
-			        success: function(data, extra){
+			        success: function(data, status, extra){
 								var manifest = JSON.parse(data);
 								var html = '';
 								html += '<div class="input-group-append">';
 									html += '<button type="button" data-key="'+plugin+'" data-action="update" class="btn btn-success"><i class="fas fa-file-download mr-1"></i>'+API.Contents.Language['Update']+'</button>';
 								html += '</div>';
 								console.log(manifest);
+								console.log(status);
 								console.log(extra);
 								// $('[data-key='+plugin+'][data-action="uninstall"]').parent().before(html);
 			        }
