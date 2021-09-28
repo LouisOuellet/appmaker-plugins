@@ -23,18 +23,20 @@ API.Plugins.plugins = {
 							html += '<div class="input-group">';
 								html += '<div class="input-group-prepend"><span class="input-group-text"><i class="icon icon-'+plugin+' mr-1"></i>'+API.Helper.ucfirst(API.Helper.clean(plugin))+'</span></div>';
 								html += '<input type="text" class="form-control switch-spacer" disabled>';
-								html += '<div class="input-group-append">';
-									html += '<div class="input-group-text"><i class="fas fa-puzzle-piece mr-1"></i>'+API.Contents.Language['Status']+'</div>';
-								html += '</div>';
-								html += '<div class="input-group-append">';
-									html += '<div class="input-group-text p-1">';
-										if(API.Contents.Settings.plugins[plugin].status){
-											html += '<input type="checkbox" data-key="'+plugin+'" name="'+plugin+'" title="'+API.Helper.ucfirst(API.Helper.clean(plugin))+'" checked>';
-										} else {
-											html += '<input type="checkbox" data-key="'+plugin+'" name="'+plugin+'" title="'+API.Helper.ucfirst(API.Helper.clean(plugin))+'">';
-										}
+								if(API.Helper.isSet(API,['Contents','Settings','plugins',$(this).attr('data-key'),'status'])){
+									html += '<div class="input-group-append">';
+										html += '<div class="input-group-text"><i class="fas fa-puzzle-piece mr-1"></i>'+API.Contents.Language['Status']+'</div>';
 									html += '</div>';
-								html += '</div>';
+									html += '<div class="input-group-append">';
+										html += '<div class="input-group-text p-1">';
+											if(API.Contents.Settings.plugins[plugin].status){
+												html += '<input type="checkbox" data-key="'+plugin+'" name="'+plugin+'" title="'+API.Helper.ucfirst(API.Helper.clean(plugin))+'" checked>';
+											} else {
+												html += '<input type="checkbox" data-key="'+plugin+'" name="'+plugin+'" title="'+API.Helper.ucfirst(API.Helper.clean(plugin))+'">';
+											}
+										html += '</div>';
+									html += '</div>';
+								}
 								html += '<div class="input-group-append">';
 									html += '<button type="button" data-key="'+plugin+'" data-action="compile" class="btn btn-primary"><i class="fas fa-compress-arrows-alt mr-1"></i>'+API.Contents.Language['Compile']+'</button>';
 								html += '</div>';
@@ -71,7 +73,9 @@ API.Plugins.plugins = {
 							API.request('settings','save',{data:{settings:{plugins:API.Contents.Settings.plugins}}});
 						}
 					});
-					$(this).bootstrapSwitch('state',API.Contents.Settings.plugins[$(this).attr('data-key')].status);
+					if(API.Helper.isSet(API,['Contents','Settings','plugins',$(this).attr('data-key'),'status'])){
+						$(this).bootstrapSwitch('state',API.Contents.Settings.plugins[$(this).attr('data-key')].status);
+					} else { $(this).bootstrapSwitch('state',false); }
 				});
 			});
 		},
