@@ -74,7 +74,7 @@ API.Plugins.plugins = {
 					$(this).bootstrapSwitch({
 						onSwitchChange:function(e,state){
 							API.Contents.Settings.plugins[$(this).attr('data-key')].status = state;
-							API.request('settings','save',{data:{settings:{plugins:API.Contents.Settings.plugins}}});
+							API.request('plugins','status',{data:{plugin:$(this).attr('data-key'),state:state}});
 						}
 					});
 					if(API.Helper.isSet(API,['Contents','Settings','plugins',$(this).attr('data-key'),'status'])){
