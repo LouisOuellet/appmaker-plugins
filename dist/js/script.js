@@ -66,12 +66,14 @@ API.Plugins.plugins = {
 				html += '</div>';
 				content.html(html);
 				for(var [plugin, status] of Object.entries(API.Contents.Plugins)){
-					$.ajax({
-		        url: API.Contents.Plugins[plugin].repository.host.raw+API.Contents.Plugins[plugin].repository.name+'/blob/'+API.Contents.Plugins[plugin].repository.branch+API.Contents.Plugins[plugin].repository.manifest,
-		        success: function(data){
-	            alert(data);
-		        }
-					})
+					if(API.Helper.isSet(API,['Contents','Settings','plugins',plugin,'build'])){
+						$.ajax({
+			        url: API.Contents.Plugins[plugin].repository.host.raw+API.Contents.Plugins[plugin].repository.name+'/blob/'+API.Contents.Plugins[plugin].repository.branch+API.Contents.Plugins[plugin].repository.manifest,
+			        success: function(data){
+		            alert(data);
+			        }
+						})
+					}
 				}
 				content.find('input#plugin_search').on('input',function(){
 					if($(this).val() != ''){
