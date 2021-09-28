@@ -22,6 +22,16 @@ API.Plugins.plugins = {
 						html += '<div class="col-12 py-2">';
 							html += '<div class="input-group">';
 								html += '<div class="input-group-prepend"><span class="input-group-text"><i class="icon icon-'+plugin+' mr-1"></i>'+API.Helper.ucfirst(API.Helper.clean(plugin))+'</span></div>';
+								if(API.Helper.isSet(API,['Contents','Settings','plugins',plugin,'version'])){
+									html += '<div class="input-group-append">';
+										html += '<div class="input-group-text">'+API.Contents.Settings.plugins[plugin].version+'</div>';
+									html += '</div>';
+								}
+								if(API.Helper.isSet(API,['Contents','Settings','plugins',plugin,'build'])){
+									html += '<div class="input-group-append">';
+										html += '<div class="input-group-text">'+API.Contents.Settings.plugins[plugin].build+'</div>';
+									html += '</div>';
+								}
 								html += '<input type="text" class="form-control switch-spacer" disabled>';
 								if(API.Helper.isSet(API,['Contents','Settings','plugins',plugin,'status'])){
 									html += '<div class="input-group-append">';
