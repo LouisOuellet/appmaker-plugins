@@ -1,5 +1,14 @@
 {
     "status": true,
-    "build": 0,
-    "version": "21.09-dev"
+    "build": 1,
+    "version": "21.09-dev",
+    "repository": {
+        "name": "appmaker-plugins",
+        "branch": "dev",
+        "host": {
+            "git": "https:\/\/github.com\/LouisOuellet\/",
+            "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+        },
+        "manifest": "\/dist\/data\/manifest.json"
+    }
 }
