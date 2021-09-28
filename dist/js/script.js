@@ -37,18 +37,22 @@ API.Plugins.plugins = {
 										html += '</div>';
 									html += '</div>';
 								}
-								html += '<div class="input-group-append">';
-									html += '<button type="button" data-key="'+plugin+'" data-action="compile" class="btn btn-primary"><i class="fas fa-compress-arrows-alt mr-1"></i>'+API.Contents.Language['Compile']+'</button>';
-								html += '</div>';
-								html += '<div class="input-group-append">';
-									html += '<button type="button" data-key="'+plugin+'" data-action="update" class="btn btn-success"><i class="fas fa-file-download mr-1"></i>'+API.Contents.Language['Update']+'</button>';
-								html += '</div>';
-								html += '<div class="input-group-append">';
-									html += '<button type="button" data-key="'+plugin+'" data-action="uninstall" class="btn btn-danger"><i class="fas fa-trash-alt mr-1"></i>'+API.Contents.Language['Uninstall']+'</button>';
-								html += '</div>';
-								html += '<div class="input-group-append">';
-									html += '<button type="button" data-key="'+plugin+'" data-action="install" class="btn btn-success"><i class="fas fa-download mr-1"></i>'+API.Contents.Language['Install']+'</button>';
-								html += '</div>';
+								if(API.Helper.isSet(API,['Contents','Settings','plugins',plugin,'status'])){
+									html += '<div class="input-group-append">';
+										html += '<button type="button" data-key="'+plugin+'" data-action="compile" class="btn btn-primary"><i class="fas fa-compress-arrows-alt mr-1"></i>'+API.Contents.Language['Compile']+'</button>';
+									html += '</div>';
+									html += '<div class="input-group-append">';
+										html += '<button type="button" data-key="'+plugin+'" data-action="update" class="btn btn-success"><i class="fas fa-file-download mr-1"></i>'+API.Contents.Language['Update']+'</button>';
+									html += '</div>';
+									html += '<div class="input-group-append">';
+										html += '<button type="button" data-key="'+plugin+'" data-action="uninstall" class="btn btn-danger"><i class="fas fa-trash-alt mr-1"></i>'+API.Contents.Language['Uninstall']+'</button>';
+									html += '</div>';
+								}
+								if(!API.Helper.isSet(API,['Contents','Settings','plugins',plugin,'status'])){
+									html += '<div class="input-group-append">';
+										html += '<button type="button" data-key="'+plugin+'" data-action="install" class="btn btn-success"><i class="fas fa-download mr-1"></i>'+API.Contents.Language['Install']+'</button>';
+									html += '</div>';
+								}
 							html += '</div>';
 						html += '</div>';
 					}
