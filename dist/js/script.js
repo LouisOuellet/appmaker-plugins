@@ -23,7 +23,7 @@ API.Plugins.plugins = {
 							html += '<div class="input-group">';
 								html += '<div class="input-group-prepend"><span class="input-group-text"><i class="icon icon-'+plugin+' mr-1"></i>'+API.Helper.ucfirst(API.Helper.clean(plugin))+'</span></div>';
 								html += '<input type="text" class="form-control switch-spacer" disabled>';
-								if(API.Helper.isSet(API,['Contents','Settings','plugins',$(this).attr('data-key'),'status'])){
+								if(API.Helper.isSet(API,['Contents','Settings','plugins',plugin,'status'])){
 									html += '<div class="input-group-append">';
 										html += '<div class="input-group-text"><i class="fas fa-puzzle-piece mr-1"></i>'+API.Contents.Language['Status']+'</div>';
 									html += '</div>';
