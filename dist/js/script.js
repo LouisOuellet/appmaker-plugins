@@ -28,8 +28,7 @@ API.Plugins.plugins = {
 								html += '</div>';
 								html += '<div class="input-group-append">';
 									html += '<div class="input-group-text p-1">';
-									console.log(API.Contents.Settings.plugins[plugin].status);
-										if((API.Contents.Settings.plugins[plugin].status)||(API.Contents.Settings.plugins[plugin].status == "true")){
+										if(API.Contents.Settings.plugins[plugin].status){
 											html += '<input type="checkbox" data-key="'+plugin+'" name="'+plugin+'" title="'+API.Helper.ucfirst(API.Helper.clean(plugin))+'" checked>';
 										} else {
 											html += '<input type="checkbox" data-key="'+plugin+'" name="'+plugin+'" title="'+API.Helper.ucfirst(API.Helper.clean(plugin))+'">';
@@ -68,11 +67,11 @@ API.Plugins.plugins = {
 				content.find('input[type="checkbox"]').each(function(){
 					$(this).bootstrapSwitch({
 						onSwitchChange:function(e,state){
-							API.Contents.Plugins[$(this).attr('data-key')].status = state;
-							API.request('settings','save',{data:{settings:{Plugins:API.Contents.Plugins}}});
+							API.Contents.Settings.plugins[$(this).attr('data-key')].status = state;
+							API.request('settings','save',{data:{settings:{plugins:API.Contents.Settings.plugins}}});
 						}
 					});
-					$(this).bootstrapSwitch('state',API.Contents.Plugins[$(this).attr('data-key')].status);
+					$(this).bootstrapSwitch('state',API.Contents.Settings.plugins[$(this).attr('data-key')].status);
 				});
 			});
 		},
