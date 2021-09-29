@@ -24,7 +24,7 @@ if(is_file(dirname(__FILE__) . '/dist/data/manifest.json')){
   $gitignore = fopen(dirname(__FILE__) . '.gitignore', 'w');
   fwrite($gitignore, ".DS_Store\n*.DS_Store\n");
   fclose($gitignore);
-  echo "Preparing new plugin\n";
+  echo "Repository has been setup\n";
 }
 shell_exec("git add . && git commit -m 'UPDATE' && git push origin ".$settings['repository']['branch']);
 echo "\n";
