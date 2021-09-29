@@ -28,26 +28,24 @@ class pluginsAPI extends API {
       if(isset($data['plugin'])){
         $data['silent']=true;
         if($this->__uninstall($data)){
-          echo $data['plugin']."\n";
-          echo dirname(__FILE__,3)."/plugins/".$data['plugin']."\n";
-          // while(is_dir(dirname(__FILE__,3)."/plugins/".$data['plugin'])){
-          //   if(!is_dir(dirname(__FILE__,3)."/plugins/".$data['plugin'])){
-          //     if($this->__install($data)){
-          //       return [
-          //         "success" => $this->Language->Field["Plugin was updated"],
-          //         "request" => $request,
-          //         "data" => $data,
-          //       ];
-          //     } else {
-          //       return [
-          //         "error" => $this->Language->Field["Unable to install plugin"],
-          //         "request" => $request,
-          //         "data" => $data,
-          //       ];
-          //     }
-          //     break;
-          //   }
-          // }
+          while(is_dir(dirname(__FILE__,3)."/plugins/".$data['plugin'])){
+            if(!is_dir(dirname(__FILE__,3)."/plugins/".$data['plugin'])){
+              if($this->__install($data)){
+                return [
+                  "success" => $this->Language->Field["Plugin was updated"],
+                  "request" => $request,
+                  "data" => $data,
+                ];
+              } else {
+                return [
+                  "error" => $this->Language->Field["Unable to install plugin"],
+                  "request" => $request,
+                  "data" => $data,
+                ];
+              }
+              break;
+            }
+          }
         } else {
           return [
             "error" => $this->Language->Field["Unable to uninstall plugin"],
