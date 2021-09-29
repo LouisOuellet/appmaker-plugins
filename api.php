@@ -26,6 +26,7 @@ class pluginsAPI extends API {
 		if(isset($data)){
 			if(!is_array($data)){ $data = json_decode($data, true); }
       if(isset($data['plugin'])){
+        $data['silent']=true;
         $this->__uninstall($data);
         $this->__install($data);
         return [
