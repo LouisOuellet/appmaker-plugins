@@ -75,7 +75,7 @@ class pluginsAPI extends API {
         $data['silent']=true;
         $this->__install($data);
         return [
-          "success" => $this->Language->Field["Plugin was updated"],
+          "success" => $this->Language->Field["Plugin was installed"],
           "request" => $request,
           "data" => $data,
         ];
@@ -90,7 +90,7 @@ class pluginsAPI extends API {
         $data['silent']=true;
         $this->__uninstall($data);
         return [
-          "success" => $this->Language->Field["Plugin was updated"],
+          "success" => $this->Language->Field["Plugin was uninstalled"],
           "request" => $request,
           "data" => $data,
         ];
