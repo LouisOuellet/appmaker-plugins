@@ -69,6 +69,7 @@ API.Plugins.plugins = {
 						content.html(html);
 						for(var [plugin, conf] of Object.entries(dataset.output.plugins)){
 							if(API.Helper.isSet(API,['Contents','Settings','plugins',plugin])){
+								console.log(plugin);
 								$.ajax({
 					        url: dataset.output.plugins[plugin].repository.host.raw+dataset.output.plugins[plugin].repository.name+'/'+dataset.output.plugins[plugin].repository.branch+dataset.output.plugins[plugin].repository.manifest,
 					        success: function(data, status, extra, more){
@@ -77,10 +78,9 @@ API.Plugins.plugins = {
 										html += '<div class="input-group-append">';
 											html += '<button type="button" data-key="'+manifest.name+'" data-action="update" class="btn btn-success"><i class="fas fa-file-download mr-1"></i>'+API.Contents.Language['Update']+'</button>';
 										html += '</div>';
-										if(manifest.name == 'organizations'){
-											console.log(API.Helper.isSet(dataset.output.settings,[manifest.name,'build']));
-											console.log(dataset.output.settings[manifest.name].build < manifest.build);
-										}
+										console.log(manifest.name);
+										console.log(API.Helper.isSet(dataset.output.settings,[manifest.name,'build']));
+										console.log(dataset.output.settings[manifest.name].build < manifest.build);
 										if(!API.Helper.isSet(dataset.output.settings,[manifest.name,'build'])||dataset.output.settings[manifest.name].build < manifest.build){
 											$('[data-key='+manifest.name+'][data-action="uninstall"]').parent().before(html);
 											$('[data-key='+manifest.name+'][data-action="update"]').off().click(function(){
