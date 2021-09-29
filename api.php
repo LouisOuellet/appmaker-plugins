@@ -1,6 +1,21 @@
 <?php
 class pluginsAPI extends API {
 
+  public function get($request, $data){
+		if(isset($data)){
+			if(!is_array($data)){ $data = json_decode($data, true); }
+      return [
+        "success" => $this->Language->Field["This request was successfull"],
+        "request" => $request,
+        "data" => $data,
+				"output" => [
+					'plugins' => $this->Plugins,
+					'settings' => $this->Settings['plugins'],
+				],
+      ];
+    }
+  }
+
 	public function status($request, $data){
 		if(isset($data)){
 			if(!is_array($data)){ $data = json_decode($data, true); }
