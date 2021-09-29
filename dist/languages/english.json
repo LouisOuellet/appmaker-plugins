@@ -2,5 +2,6 @@
 		"plugins": "plugins",
 		"Plugins": "Plugins",
 		"Plugin was activated": "Plugin was activated",
-		"Plugin was deactivated": "Plugin was deactivated"
+		"Plugin was deactivated": "Plugin was deactivated",
+		"Plugin was updated": "Plugin was updated"
 }
