@@ -12,8 +12,8 @@ if(is_file(dirname(__FILE__) . '/dist/data/manifest.json')){
   echo "Preparing new plugin\n";
   $settings['repository']['name'] = str_replace("\n",'',shell_exec("basename `git rev-parse --show-toplevel`"));
   $settings['repository']['branch'] = str_replace("\n",'',shell_exec("git rev-parse --abbrev-ref HEAD"));
-  $settings['repository']['manifest'] = dirname(__FILE__) . '/dist/data/manifest.json';
-  $settings['repository']['host']['git'] = str_replace("\n",'',shell_exec("git config --get remote.origin.url"));
+  $settings['repository']['manifest'] = '/dist/data/manifest.json';
+  $settings['repository']['host']['git'] = str_replace($settings['repository']['name'].'.git','',str_replace("\n",'',shell_exec("git config --get remote.origin.url")));
   $settings['name'] = $settings['repository']['name'];
   $settings['status'] = false;
   $settings['build'] = 1;
