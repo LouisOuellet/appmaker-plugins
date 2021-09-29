@@ -28,10 +28,10 @@ class pluginsAPI extends API {
       if(isset($data['plugin'])){
         $data['silent']=true;
         if($this->__uninstall($data)){
-          echo $args['plugin']."\n";
-          echo dirname(__FILE__,3)."/plugins/".$args['plugin']."\n";
-          // while(is_dir(dirname(__FILE__,3)."/plugins/".$args['plugin'])){
-          //   if(!is_dir(dirname(__FILE__,3)."/plugins/".$args['plugin'])){
+          echo $data['plugin']."\n";
+          echo dirname(__FILE__,3)."/plugins/".$data['plugin']."\n";
+          // while(is_dir(dirname(__FILE__,3)."/plugins/".$data['plugin'])){
+          //   if(!is_dir(dirname(__FILE__,3)."/plugins/".$data['plugin'])){
           //     if($this->__install($data)){
           //       return [
           //         "success" => $this->Language->Field["Plugin was updated"],
