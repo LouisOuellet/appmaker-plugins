@@ -77,6 +77,10 @@ API.Plugins.plugins = {
 										html += '<div class="input-group-append">';
 											html += '<button type="button" data-key="'+manifest.name+'" data-action="update" class="btn btn-success"><i class="fas fa-file-download mr-1"></i>'+API.Contents.Language['Update']+'</button>';
 										html += '</div>';
+										if(manifest.name == 'organizations'){
+											console.log(API.Helper.isSet(dataset.output.settings,[manifest.name,'build']));
+											console.log(dataset.output.settings[manifest.name].build < manifest.build);
+										}
 										if(!API.Helper.isSet(dataset.output.settings,[manifest.name,'build'])||dataset.output.settings[manifest.name].build < manifest.build){
 											$('[data-key='+manifest.name+'][data-action="uninstall"]').parent().before(html);
 											$('[data-key='+manifest.name+'][data-action="update"]').off().click(function(){

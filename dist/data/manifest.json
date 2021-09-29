@@ -1,6 +1,6 @@
 {
     "status": true,
-    "build": 42,
+    "build": 43,
     "version": "21.09-dev",
     "name": "plugins",
     "repository": {
