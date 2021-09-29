@@ -72,7 +72,9 @@ API.Plugins.plugins = {
 								html += '<div class="input-group-append">';
 									html += '<button type="button" data-key="'+manifest.name+'" data-action="update" class="btn btn-success"><i class="fas fa-file-download mr-1"></i>'+API.Contents.Language['Update']+'</button>';
 								html += '</div>';
-								$('[data-key='+manifest.name+'][data-action="uninstall"]').parent().before(html);
+								if(API.Contents.Settings.plugins[manifest.name].build <= manifest.build){
+									$('[data-key='+manifest.name+'][data-action="uninstall"]').parent().before(html);
+								}
 			        }
 						})
 					}
