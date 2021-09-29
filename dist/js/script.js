@@ -70,13 +70,9 @@ API.Plugins.plugins = {
 								var manifest = JSON.parse(data);
 								var html = '';
 								html += '<div class="input-group-append">';
-									html += '<button type="button" data-key="'+plugin+'" data-action="update" class="btn btn-success"><i class="fas fa-file-download mr-1"></i>'+API.Contents.Language['Update']+'</button>';
+									html += '<button type="button" data-key="'+manifest.name+'" data-action="update" class="btn btn-success"><i class="fas fa-file-download mr-1"></i>'+API.Contents.Language['Update']+'</button>';
 								html += '</div>';
-								console.log(manifest);
-								console.log(status);
-								console.log(extra);
-								console.log(more);
-								// $('[data-key='+plugin+'][data-action="uninstall"]').parent().before(html);
+								$('[data-key='+manifest.name+'][data-action="uninstall"]').parent().before(html);
 			        }
 						})
 					}

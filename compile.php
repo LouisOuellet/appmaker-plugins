@@ -13,6 +13,7 @@ if(is_file(dirname(__FILE__) . '/dist/data/manifest.json')){
   $settings['repository']['branch'] = shell_exec("git rev-parse --abbrev-ref HEAD");
   $settings['repository']['manifest'] = dirname(__FILE__) . '/dist/data/manifest.json';
   $settings['repository']['host']['git'] = shell_exec("git config --get remote.origin.url");
+  $settings['name'] = $settings['repository']['name'];
   $settings['status'] = false;
   $settings['build'] = 1;
   $settings['version'] = date("y.m").'-'.$settings['repository']['branch'];
