@@ -27,13 +27,27 @@ class pluginsAPI extends API {
 			if(!is_array($data)){ $data = json_decode($data, true); }
       if(isset($data['plugin'])){
         $data['silent']=true;
-        $this->__uninstall($data);
-        $this->__install($data);
-        return [
-          "success" => $this->Language->Field["Plugin was updated"],
-          "request" => $request,
-          "data" => $data,
-        ];
+        if($this->__uninstall($data)){
+          if($this->__install($data)){
+            return [
+              "success" => $this->Language->Field["Plugin was updated"],
+              "request" => $request,
+              "data" => $data,
+            ];
+          } else {
+            return [
+              "error" => $this->Language->Field["Unable to install plugin"],
+              "request" => $request,
+              "data" => $data,
+            ];
+          }
+        } else {
+          return [
+            "error" => $this->Language->Field["Unable to uninstall plugin"],
+            "request" => $request,
+            "data" => $data,
+          ];
+        }
       }
     }
   }
