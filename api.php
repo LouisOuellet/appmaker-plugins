@@ -37,4 +37,34 @@ class pluginsAPI extends API {
       }
     }
   }
+
+	public function install($request, $data){
+		if(isset($data)){
+			if(!is_array($data)){ $data = json_decode($data, true); }
+      if(isset($data['plugin'])){
+        $data['silent']=true;
+        $this->__install($data);
+        return [
+          "success" => $this->Language->Field["Plugin was updated"],
+          "request" => $request,
+          "data" => $data,
+        ];
+      }
+    }
+  }
+
+	public function uninstall($request, $data){
+		if(isset($data)){
+			if(!is_array($data)){ $data = json_decode($data, true); }
+      if(isset($data['plugin'])){
+        $data['silent']=true;
+        $this->__uninstall($data);
+        return [
+          "success" => $this->Language->Field["Plugin was updated"],
+          "request" => $request,
+          "data" => $data,
+        ];
+      }
+    }
+  }
 }

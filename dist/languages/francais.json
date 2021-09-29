@@ -3,5 +3,7 @@
 		"Plugins": "Extensions",
 		"Plugin was activated": "Extension active",
 		"Plugin was deactivated": "Extension desactive",
-		"Plugin was updated": "Extension a ete mis a jour"
+		"Plugin was updated": "Extension a ete mis a jour",
+		"Plugin was installed": "Extension installe",
+		"Plugin was uninstalled": "Extension desinstalle"
 }

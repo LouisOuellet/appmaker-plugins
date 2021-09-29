@@ -74,7 +74,7 @@ API.Plugins.plugins = {
 								html += '</div>';
 								if(API.Contents.Settings.plugins[manifest.name].build < manifest.build){
 									$('[data-key='+manifest.name+'][data-action="uninstall"]').parent().before(html);
-									$('[data-key='+manifest.name+'][data-action="update"]').click(function(){
+									$('[data-key='+manifest.name+'][data-action="update"]').off().click(function(){
 										API.request('plugins','update',{data:{plugin:manifest.name}});
 									});
 								}
@@ -90,8 +90,8 @@ API.Plugins.plugins = {
 				});
 				content.find('button[data-action]').click(function(){
 					switch($(this).attr('data-action')){
-						case'compile': API.request($(this).attr('data-key'),'plugin'+API.Helper.ucfirst($(this).attr('data-action')),{data:{type:'skeleton'}});break;
-						default: API.request($(this).attr('data-key'),'plugin'+API.Helper.ucfirst($(this).attr('data-action')));break;
+						case'install': API.request('plugins',$(this).attr('data-action'),{data:{plugin:$(this).attr('data-key')}});break;
+						case'uninstall': API.request('plugins',$(this).attr('data-action'),{data:{plugin:$(this).attr('data-key')}});break;
 					}
 				});
 				content.find('input[type="checkbox"]').each(function(){
