@@ -7,6 +7,8 @@ API.Plugins.plugins = {
 			API.request('plugins','get',{data:{}},function(result) {
 				var dataset = JSON.parse(result);
 				if(dataset.success != undefined){
+					API.Contents.Plugins = dataset.output.plugins;
+					API.Contents.Settings.plugins = dataset.output.settings;
 					API.Builder.card($('#pagecontent'),{ title: 'Plugins', icon: 'plugins'}, function(card){
 						var html = '', checked = '', content = card.find('.card-body');
 						html += '<div class="row">';
