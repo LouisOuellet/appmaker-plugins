@@ -73,6 +73,8 @@ API.Plugins.plugins = {
 									html += '<button type="button" data-key="'+manifest.name+'" data-action="update" class="btn btn-success"><i class="fas fa-file-download mr-1"></i>'+API.Contents.Language['Update']+'</button>';
 								html += '</div>';
 								console.log(API.Contents.Settings.plugins[manifest.name].build+' < '+manifest.build);
+								console.log(API.Contents.Settings.plugins[manifest.name]);
+								console.log(manifest.build);
 								if(API.Contents.Settings.plugins[manifest.name].build < manifest.build){
 									$('[data-key='+manifest.name+'][data-action="uninstall"]').parent().before(html);
 								}
