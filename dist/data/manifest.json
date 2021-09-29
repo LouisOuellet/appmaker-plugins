@@ -1,6 +1,6 @@
 {
     "status": true,
-    "build": 9,
+    "build": 10,
     "version": "21.09-dev",
     "repository": {
         "name": "appmaker-plugins",
