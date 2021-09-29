@@ -28,7 +28,8 @@ class pluginsAPI extends API {
       if(isset($data['plugin'])){
         $data['silent']=true;
         if($this->__uninstall($data)){
-          echo dirname(__FILE__,3)."/plugins/".$args['plugin'];
+          echo $args['plugin']."\n";
+          echo dirname(__FILE__,3)."/plugins/".$args['plugin']."\n";
           // while(is_dir(dirname(__FILE__,3)."/plugins/".$args['plugin'])){
           //   if(!is_dir(dirname(__FILE__,3)."/plugins/".$args['plugin'])){
           //     if($this->__install($data)){
