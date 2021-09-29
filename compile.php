@@ -9,6 +9,7 @@ if(is_file(dirname(__FILE__) . '/dist/data/manifest.json')){
   fwrite($manifest, json_encode($settings, JSON_PRETTY_PRINT));
   fclose($manifest);
 } else {
+  echo "Preparing new plugin\n";
   $settings['repository']['name'] = shell_exec("basename `git rev-parse --show-toplevel`");
   $settings['repository']['branch'] = shell_exec("git rev-parse --abbrev-ref HEAD");
   $settings['repository']['manifest'] = dirname(__FILE__) . '/dist/data/manifest.json';
@@ -20,6 +21,10 @@ if(is_file(dirname(__FILE__) . '/dist/data/manifest.json')){
   $manifest = fopen(dirname(__FILE__) . '/dist/data/manifest.json', 'w');
   fwrite($manifest, json_encode($settings, JSON_PRETTY_PRINT));
   fclose($manifest);
+  $gitignore = fopen(dirname(__FILE__) . '.gitignore', 'w');
+  fwrite($gitignore, ".DS_Store\n*.DS_Store\n");
+  fclose($gitignore);
+
 }
 shell_exec("git add . && git commit -m 'UPDATE' && git push origin ".$settings['repository']['branch']);
 echo "\n";
