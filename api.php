@@ -1,5 +1,6 @@
 <?php
 class pluginsAPI extends API {
+
 	public function status($request, $data){
 		if(isset($data)){
 			if(!is_array($data)){ $data = json_decode($data, true); }
@@ -14,6 +15,21 @@ class pluginsAPI extends API {
       } else {
         return [
           "success" => $this->Language->Field["Plugin was deactivated"],
+          "request" => $request,
+          "data" => $data,
+        ];
+      }
+    }
+  }
+
+	public function update($request, $data){
+		if(isset($data)){
+			if(!is_array($data)){ $data = json_decode($data, true); }
+      if(isset($data['plugin'])){
+        $this->__uninstall($data);
+        $this->__install($data);
+        return [
+          "success" => $this->Language->Field["Plugin was updated"],
           "request" => $request,
           "data" => $data,
         ];

@@ -74,6 +74,9 @@ API.Plugins.plugins = {
 								html += '</div>';
 								if(API.Contents.Settings.plugins[manifest.name].build < manifest.build){
 									$('[data-key='+manifest.name+'][data-action="uninstall"]').parent().before(html);
+									$('[data-key='+manifest.name+'][data-action="update"]').click(function(){
+										API.request('plugins','update',{data:{plugin:manifest.name}});
+									});
 								}
 			        }
 						})
