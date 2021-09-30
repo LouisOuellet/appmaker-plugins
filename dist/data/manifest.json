@@ -1,6 +1,6 @@
 {
     "status": true,
-    "build": 49,
+    "build": 50,
     "version": "21.09-dev",
     "name": "plugins",
     "repository": {
@@ -10,6 +10,11 @@
             "git": "https:\/\/github.com\/LouisOuellet\/",
             "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
         },
-        "manifest": "\/dist\/data\/manifest.json"
+        "manifest": "\/dist\/data\/manifest.json",
+        "branches": [
+            "main",
+            "beta",
+            "dev"
+        ]
     }
 }
