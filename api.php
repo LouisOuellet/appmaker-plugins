@@ -42,9 +42,12 @@ class pluginsAPI extends API {
 			if(!is_array($data)){ $data = json_decode($data, true); }
       if(isset($data['plugin'])){
         $data['silent']=true;
+        $settings = $this->Settings['plugins'][$args['plugin']];
         if($this->__uninstall($data)){
           $data['force']=true;
           if($this->__install($data)){
+            $this->Settings['plugins'][$args['plugin']] = $settings;
+            $this->SaveCfg(['plugins' => $this->Settings['plugins']]);
             return [
               "success" => $this->Language->Field["Plugin was updated"],
               "request" => $request,
