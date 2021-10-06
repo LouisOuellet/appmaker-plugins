@@ -70,7 +70,7 @@ API.Plugins.plugins = {
 						for(var [plugin, conf] of Object.entries(dataset.output.plugins)){
 							if(API.Helper.isSet(API,['Contents','Settings','plugins',plugin])){
 								$.ajax({
-					        url: dataset.output.plugins[plugin].repository.host.raw+dataset.output.plugins[plugin].repository.name+'/'+dataset.output.plugins[plugin].repository.branch+dataset.output.plugins[plugin].repository.manifest,
+					        url: dataset.output.plugins[plugin].repository.host.raw+dataset.output.plugins[plugin].repository.name+'/'+API.Contents.Settings.repository.branch+dataset.output.plugins[plugin].repository.manifest,
 					        success: function(data, status, extra, more){
 										var manifest = JSON.parse(data);
 										var html = '';
