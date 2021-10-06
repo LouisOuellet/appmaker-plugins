@@ -68,7 +68,6 @@ API.Plugins.plugins = {
 						html += '</div>';
 						content.html(html);
 						for(var [plugin, conf] of Object.entries(dataset.output.plugins)){
-							console.log(API.Helper.isSet(API,['Contents','Settings','plugins',plugin]));
 							if(API.Helper.isSet(API,['Contents','Settings','plugins',plugin])&&API.Helper.isSet(API,['Contents','Settings','repository'])){
 								$.ajax({
 					        url: dataset.output.plugins[plugin].repository.host.raw+dataset.output.plugins[plugin].repository.name+'/'+API.Contents.Settings.repository.branch+dataset.output.plugins[plugin].repository.manifest,
