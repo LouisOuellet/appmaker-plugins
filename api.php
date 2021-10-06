@@ -47,6 +47,7 @@ class pluginsAPI extends API {
           $data['force']=true;
           if($this->__install($data)){
             $this->Settings['plugins'][$data['plugin']] = array_merge($settings,$this->Settings['plugins'][$data['plugin']]);
+            if(isset($settings['status'])){ $this->Settings['plugins'][$data['plugin']]['status'] = $settings['status']; }
             $this->SaveCfg(['plugins' => $this->Settings['plugins']]);
             return [
               "success" => $this->Language->Field["Plugin was updated"],
