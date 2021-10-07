@@ -52,38 +52,36 @@ API.Plugins.plugins = {
 												html += '</div>';
 											html += '</div>';
 										}
-										if(API.Helper.isSet(API,['Contents','Settings','plugins',plugin])){
-											html += '<div class="input-group-append">';
-												html += '<button type="button" data-key="'+plugin+'" data-action="uninstall" class="btn btn-danger"><i class="fas fa-trash-alt mr-1"></i>'+API.Contents.Language['Uninstall']+'</button>';
-											html += '</div>';
-										}
-										if(!API.Helper.isSet(API,['Contents','Settings','plugins',plugin])){
-											html += '<div class="input-group-append">';
-												html += '<button type="button" data-key="'+plugin+'" data-action="install" class="btn btn-success"><i class="fas fa-download mr-1"></i>'+API.Contents.Language['Install']+'</button>';
-											html += '</div>';
-										}
+										html += '<div class="input-group-append" style="display:none;">';
+											html += '<button type="button" data-key="'+plugin+'" data-action="update" class="btn btn-success"><i class="fas fa-file-download mr-1"></i>'+API.Contents.Language['Update']+'</button>';
+										html += '</div>';
+										html += '<div class="input-group-append" style="display:none;">';
+											html += '<button type="button" data-key="'+plugin+'" data-action="uninstall" class="btn btn-danger"><i class="fas fa-trash-alt mr-1"></i>'+API.Contents.Language['Uninstall']+'</button>';
+										html += '</div>';
+										html += '<div class="input-group-append" style="display:none;">';
+											html += '<button type="button" data-key="'+plugin+'" data-action="install" class="btn btn-success"><i class="fas fa-download mr-1"></i>'+API.Contents.Language['Install']+'</button>';
+										html += '</div>';
 									html += '</div>';
 								html += '</div>';
 							}
 						html += '</div>';
 						content.html(html);
+						if(API.Helper.isSet(API,['Contents','Settings','plugins',plugin])){ $('[data-key='+plugin+'][data-action="uninstall"]').parent().show(); }
+						else { $('[data-key='+plugin+'][data-action="install"]').parent().show(); }
 						for(var [plugin, conf] of Object.entries(dataset.output.plugins)){
 							if(API.Helper.isSet(API,['Contents','Settings','plugins',plugin])&&API.Helper.isSet(API,['Contents','Settings','repository'])){
 								$.ajax({
 					        url: dataset.output.plugins[plugin].repository.host.raw+dataset.output.plugins[plugin].repository.name+'/'+API.Contents.Settings.repository.branch+dataset.output.plugins[plugin].repository.manifest,
-					        success: function(data, status, extra, more){
+					        success: function(data){
+										console.log(this.url);
 										var manifest = JSON.parse(data);
-										var html = '';
-										html += '<div class="input-group-append">';
-											html += '<button type="button" data-key="'+manifest.name+'" data-action="update" class="btn btn-success"><i class="fas fa-file-download mr-1"></i>'+API.Contents.Language['Update']+'</button>';
-										html += '</div>';
 										if(!API.Helper.isSet(dataset.output.settings,[manifest.name,'build'])||dataset.output.settings[manifest.name].build < manifest.build){
-											$('[data-key='+manifest.name+'][data-action="uninstall"]').parent().before(html);
-											$('[data-key='+manifest.name+'][data-action="update"]').off().click(function(){
-												API.request('plugins','update',{data:{plugin:manifest.name}});
-											});
+											$('[data-key='+manifest.name+'][data-action="update"]').parent().show();
 										}
-					        }
+					        },
+									error: function(data, status, extra, more){
+										$('[data-key='+manifest.name+'][data-action="install"]').parent().hide();
+									}
 								})
 							}
 						}
@@ -93,10 +91,11 @@ API.Plugins.plugins = {
 								content.find('input[data-key*="'+$(this).val()+'"]').each(function(){ $(this).parents().eq(5).show(); });
 							} else { content.find('.col-12.py-2').show(); }
 						});
-						content.find('button[data-action]').click(function(){
+						content.find('button[data-action]').off().click(function(){
 							switch($(this).attr('data-action')){
 								case'install': API.request('plugins',$(this).attr('data-action'),{data:{plugin:$(this).attr('data-key')}});break;
 								case'uninstall': API.request('plugins',$(this).attr('data-action'),{data:{plugin:$(this).attr('data-key')}});break;
+								case'update': API.request('plugins',$(this).attr('data-action'),{data:{plugin:$(this).attr('data-key')}});break;
 							}
 						});
 						content.find('input[type="checkbox"]').each(function(){
