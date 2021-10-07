@@ -67,26 +67,24 @@ API.Plugins.plugins = {
 						html += '</div>';
 						content.html(html);
 						for(var [plugin, conf] of Object.entries(dataset.output.plugins)){
-							// if(API.Helper.isSet(API,['Contents','Settings','plugins',plugin])&&API.Helper.isSet(API,['Contents','Settings','repository'])){
-								$.ajax({
-					        url: dataset.output.plugins[plugin].repository.host.raw+dataset.output.plugins[plugin].repository.name+'/'+API.Contents.Settings.repository.branch+dataset.output.plugins[plugin].repository.manifest,
-					        success: function(data){
-										plugin = this.url.substring(this.url.indexOf("appmaker-") + 9).split('/')[0];
-										console.log(plugin);
-										var manifest = JSON.parse(data);
-										if(API.Helper.isSet(API,['Contents','Settings','plugins',plugin])){ $('[data-key='+plugin+'][data-action="uninstall"]').parent().show(); }
-										else { $('[data-key='+plugin+'][data-action="install"]').parent().show(); }
+							$.ajax({
+				        url: dataset.output.plugins[plugin].repository.host.raw+dataset.output.plugins[plugin].repository.name+'/'+API.Contents.Settings.repository.branch+dataset.output.plugins[plugin].repository.manifest,
+				        success: function(data){
+									plugin = this.url.substring(this.url.indexOf("appmaker-") + 9).split('/')[0];
+									var manifest = JSON.parse(data);
+									if(API.Helper.isSet(API,['Contents','Settings','plugins',plugin])){
+										$('[data-key='+plugin+'][data-action="uninstall"]').parent().show();
 										if(!API.Helper.isSet(dataset.output.settings,[plugin,'build'])||dataset.output.settings[plugin].build < manifest.build){
 											$('[data-key='+plugin+'][data-action="update"]').parent().show();
 										}
-					        },
-									error: function(){
-										plugin = this.url.substring(this.url.indexOf("appmaker-") + 9).split('/')[0];
-										console.log(plugin);
-										$('[data-key='+plugin+'][data-action="install"]').parent().hide();
 									}
-								})
-							// }
+									else { $('[data-key='+plugin+'][data-action="install"]').parent().show(); }
+				        },
+								error: function(){
+									plugin = this.url.substring(this.url.indexOf("appmaker-") + 9).split('/')[0];
+									$('[data-key='+plugin+'][data-action="install"]').parent().hide();
+								}
+							})
 						}
 						content.find('input#plugin_search').on('input',function(){
 							if($(this).val() != ''){
