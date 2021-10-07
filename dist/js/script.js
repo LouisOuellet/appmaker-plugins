@@ -79,7 +79,8 @@ API.Plugins.plugins = {
 											$('[data-key='+manifest.name+'][data-action="update"]').parent().show();
 										}
 					        },
-									error: function(data, status, extra, more){
+									error: function(){
+										console.log(this.url);
 										$('[data-key='+manifest.name+'][data-action="install"]').parent().hide();
 									}
 								})
