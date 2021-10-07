@@ -52,7 +52,7 @@ API.Plugins.plugins = {
 												html += '</div>';
 											html += '</div>';
 										}
-										html += '<div class="input-group-append" style="display:none;">';
+										html += '<div class="input-group-append">';
 											html += '<button type="button" data-key="'+plugin+'" data-action="update" class="btn btn-success" style="display:none;"><i class="fas fa-file-download mr-1"></i>'+API.Contents.Language['Update']+'</button>';
 											html += '<button type="button" data-key="'+plugin+'" data-action="uninstall" class="btn btn-danger" style="display:none;"><i class="fas fa-trash-alt mr-1"></i>'+API.Contents.Language['Uninstall']+'</button>';
 											html += '<button type="button" data-key="'+plugin+'" data-action="install" class="btn btn-success" style="display:none;"><i class="fas fa-download mr-1"></i>'+API.Contents.Language['Install']+'</button>';
