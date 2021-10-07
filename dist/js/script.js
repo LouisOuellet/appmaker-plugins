@@ -66,8 +66,6 @@ API.Plugins.plugins = {
 							}
 						html += '</div>';
 						content.html(html);
-						if(API.Helper.isSet(API,['Contents','Settings','plugins',plugin])){ $('[data-key='+plugin+'][data-action="uninstall"]').parent().show(); }
-						else { $('[data-key='+plugin+'][data-action="install"]').parent().show(); }
 						console.log(dataset.output.plugins);
 						for(var [plugin, conf] of Object.entries(dataset.output.plugins)){
 							if(API.Helper.isSet(API,['Contents','Settings','plugins',plugin])&&API.Helper.isSet(API,['Contents','Settings','repository'])){
@@ -76,13 +74,15 @@ API.Plugins.plugins = {
 					        success: function(data){
 										plugin = this.url.substring(this.url.indexOf("appmaker-") + 9).split('/')[0];
 										var manifest = JSON.parse(data);
-										$('[data-key='+plugin+'][data-action="uninstall"]').parent().show();
+										if(API.Helper.isSet(API,['Contents','Settings','plugins',plugin])){ $('[data-key='+plugin+'][data-action="uninstall"]').parent().show(); }
+										else { $('[data-key='+plugin+'][data-action="install"]').parent().show(); }
 										if(!API.Helper.isSet(dataset.output.settings,[plugin,'build'])||dataset.output.settings[plugin].build < manifest.build){
 											$('[data-key='+plugin+'][data-action="update"]').parent().show();
 										}
 					        },
 									error: function(){
 										plugin = this.url.substring(this.url.indexOf("appmaker-") + 9).split('/')[0];
+										console.log(plugin);
 										$('[data-key='+plugin+'][data-action="install"]').parent().hide();
 									}
 								})
