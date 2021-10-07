@@ -73,15 +73,17 @@ API.Plugins.plugins = {
 								$.ajax({
 					        url: dataset.output.plugins[plugin].repository.host.raw+dataset.output.plugins[plugin].repository.name+'/'+API.Contents.Settings.repository.branch+dataset.output.plugins[plugin].repository.manifest,
 					        success: function(data){
-										console.log(this.url);
+										plugin = this.url.substring(alphabet.indexOf("appmaker-") + 9).split('/')[0];
+										console.log(plugin + ' : ' + this.url);
 										var manifest = JSON.parse(data);
-										if(!API.Helper.isSet(dataset.output.settings,[manifest.name,'build'])||dataset.output.settings[manifest.name].build < manifest.build){
-											$('[data-key='+manifest.name+'][data-action="update"]').parent().show();
+										if(!API.Helper.isSet(dataset.output.settings,[plugin,'build'])||dataset.output.settings[plugin].build < manifest.build){
+											$('[data-key='+plugin+'][data-action="update"]').parent().show();
 										}
 					        },
 									error: function(){
-										console.log(this.url);
-										$('[data-key='+manifest.name+'][data-action="install"]').parent().hide();
+										plugin = this.url.substring(alphabet.indexOf("appmaker-") + 9).split('/')[0];
+										console.log(plugin + ' : ' + this.url);
+										$('[data-key='+plugin+'][data-action="install"]').parent().hide();
 									}
 								})
 							}
