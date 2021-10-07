@@ -53,13 +53,9 @@ API.Plugins.plugins = {
 											html += '</div>';
 										}
 										html += '<div class="input-group-append" style="display:none;">';
-											html += '<button type="button" data-key="'+plugin+'" data-action="update" class="btn btn-success"><i class="fas fa-file-download mr-1"></i>'+API.Contents.Language['Update']+'</button>';
-										html += '</div>';
-										html += '<div class="input-group-append" style="display:none;">';
-											html += '<button type="button" data-key="'+plugin+'" data-action="uninstall" class="btn btn-danger"><i class="fas fa-trash-alt mr-1"></i>'+API.Contents.Language['Uninstall']+'</button>';
-										html += '</div>';
-										html += '<div class="input-group-append" style="display:none;">';
-											html += '<button type="button" data-key="'+plugin+'" data-action="install" class="btn btn-success"><i class="fas fa-download mr-1"></i>'+API.Contents.Language['Install']+'</button>';
+											html += '<button type="button" data-key="'+plugin+'" data-action="update" class="btn btn-success" style="display:none;"><i class="fas fa-file-download mr-1"></i>'+API.Contents.Language['Update']+'</button>';
+											html += '<button type="button" data-key="'+plugin+'" data-action="uninstall" class="btn btn-danger" style="display:none;"><i class="fas fa-trash-alt mr-1"></i>'+API.Contents.Language['Uninstall']+'</button>';
+											html += '<button type="button" data-key="'+plugin+'" data-action="install" class="btn btn-success" style="display:none;"><i class="fas fa-download mr-1"></i>'+API.Contents.Language['Install']+'</button>';
 										html += '</div>';
 									html += '</div>';
 								html += '</div>';
@@ -73,16 +69,16 @@ API.Plugins.plugins = {
 									plugin = this.url.substring(this.url.indexOf("appmaker-") + 9).split('/')[0];
 									var manifest = JSON.parse(data);
 									if(API.Helper.isSet(API,['Contents','Settings','plugins',plugin])){
-										$('[data-key='+plugin+'][data-action="uninstall"]').parent().show();
+										$('[data-key='+plugin+'][data-action="uninstall"]').show();
 										if(!API.Helper.isSet(dataset.output.settings,[plugin,'build'])||dataset.output.settings[plugin].build < manifest.build){
-											$('[data-key='+plugin+'][data-action="update"]').parent().show();
+											$('[data-key='+plugin+'][data-action="update"]').show();
 										}
 									}
-									else { $('[data-key='+plugin+'][data-action="install"]').parent().show(); }
+									else { $('[data-key='+plugin+'][data-action="install"]').show(); }
 				        },
 								error: function(){
 									plugin = this.url.substring(this.url.indexOf("appmaker-") + 9).split('/')[0];
-									$('[data-key='+plugin+'][data-action="install"]').parent().hide();
+									$('[data-key='+plugin+'][data-action="install"]').hide();
 								}
 							})
 						}
