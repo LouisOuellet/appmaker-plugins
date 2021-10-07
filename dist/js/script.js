@@ -73,7 +73,7 @@ API.Plugins.plugins = {
 								$.ajax({
 					        url: dataset.output.plugins[plugin].repository.host.raw+dataset.output.plugins[plugin].repository.name+'/'+API.Contents.Settings.repository.branch+dataset.output.plugins[plugin].repository.manifest,
 					        success: function(data){
-										plugin = this.url.substring(alphabet.indexOf("appmaker-") + 9).split('/')[0];
+										plugin = this.url.substring(this.url.indexOf("appmaker-") + 9).split('/')[0];
 										console.log(plugin + ' : ' + this.url);
 										var manifest = JSON.parse(data);
 										if(!API.Helper.isSet(dataset.output.settings,[plugin,'build'])||dataset.output.settings[plugin].build < manifest.build){
@@ -81,7 +81,7 @@ API.Plugins.plugins = {
 										}
 					        },
 									error: function(){
-										plugin = this.url.substring(alphabet.indexOf("appmaker-") + 9).split('/')[0];
+										plugin = this.url.substring(this.url.indexOf("appmaker-") + 9).split('/')[0];
 										console.log(plugin + ' : ' + this.url);
 										$('[data-key='+plugin+'][data-action="install"]').parent().hide();
 									}
