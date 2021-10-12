@@ -70,6 +70,7 @@ API.Plugins.plugins = {
 										$('[data-key='+thisplugin+'][data-action="uninstall"]').show();
 										$('[data-key='+thisplugin+'][data-status]').show();
 										$('[data-key='+thisplugin+'][data-toggle-status]').show();
+										console.log(dataset.output.settings[thisplugin].status);
 										if(API.Helper.isSet(API,['Contents','Settings','plugins',thisplugin,'status'])){
 											$('input[type="checkbox"][data-key='+thisplugin+']').bootstrapSwitch('state',dataset.output.settings[thisplugin].status);
 										} else { $('input[type="checkbox"][data-key='+thisplugin+']').bootstrapSwitch('state',false); }
