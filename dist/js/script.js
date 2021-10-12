@@ -38,10 +38,10 @@ API.Plugins.plugins = {
 											html += '</div>';
 										}
 										html += '<input type="text" class="form-control switch-spacer" disabled>';
-										html += '<div class="input-group-append" data-key="'+plugin+'" data-status="" style="display:none;">';
+										html += '<div class="input-group-append" data-key="'+plugin+'" data-status="">';
 											html += '<div class="input-group-text"><i class="fas fa-puzzle-piece mr-1"></i>'+API.Contents.Language['Status']+'</div>';
 										html += '</div>';
-										html += '<div class="input-group-append" data-key="'+plugin+'" data-toggle-status="" style="display:none;">';
+										html += '<div class="input-group-append" data-key="'+plugin+'" data-toggle-status="">';
 											html += '<div class="input-group-text p-1">';
 												html += '<input type="checkbox" data-key="'+plugin+'" name="'+plugin+'" title="'+API.Helper.ucfirst(API.Helper.clean(plugin))+'">';
 											html += '</div>';
