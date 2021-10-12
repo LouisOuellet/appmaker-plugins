@@ -119,7 +119,12 @@ API.Plugins.plugins = {
 										}
 									});
 									break;
-								case'update': API.request('plugins',$(this).attr('data-action'),{data:{plugin:$(this).attr('data-key')}});break;
+								case'update':
+									API.request('plugins',$(this).attr('data-action'),{data:{plugin:$(this).attr('data-key')}},function(result){
+										json = JSON.parse(result);
+										if(json.success != undefined){ $('[data-key='+json.data.plugin+'][data-action="update"]').hide(); }
+									});
+									break;
 							}
 						});
 						content.find('input[type="checkbox"]').each(function(){
