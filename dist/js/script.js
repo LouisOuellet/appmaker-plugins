@@ -38,20 +38,18 @@ API.Plugins.plugins = {
 											html += '</div>';
 										}
 										html += '<input type="text" class="form-control switch-spacer" disabled>';
-										if(API.Helper.isSet(API,['Contents','Settings','plugins',plugin,'status'])){
-											html += '<div class="input-group-append">';
-												html += '<div class="input-group-text"><i class="fas fa-puzzle-piece mr-1"></i>'+API.Contents.Language['Status']+'</div>';
+										html += '<div class="input-group-append" data-key="'+plugin+'" data-status="" style="display:none;">';
+											html += '<div class="input-group-text"><i class="fas fa-puzzle-piece mr-1"></i>'+API.Contents.Language['Status']+'</div>';
+										html += '</div>';
+										html += '<div class="input-group-append" data-key="'+plugin+'" data-toggle-status="" style="display:none;">';
+											html += '<div class="input-group-text p-1">';
+												if(API.Helper.isSet(API,['Contents','Settings','plugins',plugin,'status']) && dataset.output.settings[plugin].status){
+													html += '<input type="checkbox" data-key="'+plugin+'" name="'+plugin+'" title="'+API.Helper.ucfirst(API.Helper.clean(plugin))+'" checked>';
+												} else {
+													html += '<input type="checkbox" data-key="'+plugin+'" name="'+plugin+'" title="'+API.Helper.ucfirst(API.Helper.clean(plugin))+'">';
+												}
 											html += '</div>';
-											html += '<div class="input-group-append">';
-												html += '<div class="input-group-text p-1">';
-													if(dataset.output.settings[plugin].status){
-														html += '<input type="checkbox" data-key="'+plugin+'" name="'+plugin+'" title="'+API.Helper.ucfirst(API.Helper.clean(plugin))+'" checked>';
-													} else {
-														html += '<input type="checkbox" data-key="'+plugin+'" name="'+plugin+'" title="'+API.Helper.ucfirst(API.Helper.clean(plugin))+'">';
-													}
-												html += '</div>';
-											html += '</div>';
-										}
+										html += '</div>';
 										html += '<div class="input-group-append">';
 											html += '<button type="button" data-key="'+plugin+'" data-action="update" class="btn btn-success" style="display:none;"><i class="fas fa-file-download mr-1"></i>'+API.Contents.Language['Update']+'</button>';
 											html += '<button type="button" data-key="'+plugin+'" data-action="uninstall" class="btn btn-danger" style="display:none;"><i class="fas fa-trash-alt mr-1"></i>'+API.Contents.Language['Uninstall']+'</button>';
@@ -66,19 +64,21 @@ API.Plugins.plugins = {
 							$.ajax({
 				        url: dataset.output.plugins[plugin].repository.host.raw+dataset.output.plugins[plugin].repository.name+'/'+API.Contents.Settings.repository.branch+dataset.output.plugins[plugin].repository.manifest,
 				        success: function(data){
-									plugin = this.url.substring(this.url.indexOf("appmaker-") + 9).split('/')[0];
+									thisplugin = this.url.substring(this.url.indexOf("appmaker-") + 9).split('/')[0];
 									var manifest = JSON.parse(data);
-									if(API.Helper.isSet(API,['Contents','Settings','plugins',plugin])){
-										$('[data-key='+plugin+'][data-action="uninstall"]').show();
-										if(!API.Helper.isSet(dataset.output.settings,[plugin,'build'])||dataset.output.settings[plugin].build < manifest.build){
-											$('[data-key='+plugin+'][data-action="update"]').show();
+									if(API.Helper.isSet(API,['Contents','Settings','plugins',thisplugin])){
+										$('[data-key='+thisplugin+'][data-action="uninstall"]').show();
+										$('[data-key='+thisplugin+'][data-status]').show();
+										$('[data-key='+thisplugin+'][data-toggle-status]').show();
+										if(!API.Helper.isSet(dataset.output.settings,[thisplugin,'build'])||dataset.output.settings[thisplugin].build < manifest.build){
+											$('[data-key='+thisplugin+'][data-action="update"]').show();
 										}
 									}
-									else { $('[data-key='+plugin+'][data-action="install"]').show(); }
+									else { $('[data-key='+thisplugin+'][data-action="install"]').show(); }
 				        },
 								error: function(){
-									plugin = this.url.substring(this.url.indexOf("appmaker-") + 9).split('/')[0];
-									$('[data-key='+plugin+'][data-action="install"]').hide();
+									thisplugin = this.url.substring(this.url.indexOf("appmaker-") + 9).split('/')[0];
+									$('[data-key='+thisplugin+'][data-action="install"]').hide();
 								}
 							})
 						}
@@ -90,8 +90,28 @@ API.Plugins.plugins = {
 						});
 						content.find('button[data-action]').off().click(function(){
 							switch($(this).attr('data-action')){
-								case'install': API.request('plugins',$(this).attr('data-action'),{data:{plugin:$(this).attr('data-key')}});break;
-								case'uninstall': API.request('plugins',$(this).attr('data-action'),{data:{plugin:$(this).attr('data-key')}});break;
+								case'install':
+									API.request('plugins',$(this).attr('data-action'),{data:{plugin:$(this).attr('data-key')}},function(result){
+										json = JSON.parse(result);
+										if(json.success != undefined){
+											$('[data-key='+json.data.plugin+'][data-action="install"]').hide();
+											$('[data-key='+json.data.plugin+'][data-action="uninstall"]').show();
+											$('[data-key='+json.data.plugin+'][data-status]').show();
+											$('[data-key='+json.data.plugin+'][data-toggle-status]').show();
+										}
+									});
+									break;
+								case'uninstall':
+									API.request('plugins',$(this).attr('data-action'),{data:{plugin:$(this).attr('data-key')}},function(result){
+										json = JSON.parse(result);
+										if(json.success != undefined){
+											$('[data-key='+json.data.plugin+'][data-action="install"]').show();
+											$('[data-key='+json.data.plugin+'][data-action="uninstall"]').hide();
+											$('[data-key='+json.data.plugin+'][data-status]').hide();
+											$('[data-key='+json.data.plugin+'][data-toggle-status]').hide();
+										}
+									});
+									break;
 								case'update': API.request('plugins',$(this).attr('data-action'),{data:{plugin:$(this).attr('data-key')}});break;
 							}
 						});
