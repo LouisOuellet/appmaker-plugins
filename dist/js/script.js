@@ -43,11 +43,7 @@ API.Plugins.plugins = {
 										html += '</div>';
 										html += '<div class="input-group-append" data-key="'+plugin+'" data-toggle-status="" style="display:none;">';
 											html += '<div class="input-group-text p-1">';
-												if(API.Helper.isSet(API,['Contents','Settings','plugins',plugin,'status']) && dataset.output.settings[plugin].status){
-													html += '<input type="checkbox" data-key="'+plugin+'" name="'+plugin+'" title="'+API.Helper.ucfirst(API.Helper.clean(plugin))+'" checked>';
-												} else {
-													html += '<input type="checkbox" data-key="'+plugin+'" name="'+plugin+'" title="'+API.Helper.ucfirst(API.Helper.clean(plugin))+'">';
-												}
+												html += '<input type="checkbox" data-key="'+plugin+'" name="'+plugin+'" title="'+API.Helper.ucfirst(API.Helper.clean(plugin))+'">';
 											html += '</div>';
 										html += '</div>';
 										html += '<div class="input-group-append">';
@@ -71,8 +67,7 @@ API.Plugins.plugins = {
 										$('[data-key='+thisplugin+'][data-status]').show();
 										$('[data-key='+thisplugin+'][data-toggle-status]').show();
 										if(API.Helper.isSet(API,['Contents','Settings','plugins',thisplugin,'status'])){
-											console.log($('input[type="checkbox"][data-key="'+thisplugin+'"]'));
-											console.log(dataset.output.settings[thisplugin].status);
+											$('input[type="checkbox"][data-key="'+thisplugin+'"]').prop( "checked",dataset.output.settings[thisplugin].status);
 											$('input[type="checkbox"][data-key="'+thisplugin+'"]').bootstrapSwitch('state',dataset.output.settings[thisplugin].status);
 										} else { $('input[type="checkbox"][data-key="'+thisplugin+'"]').bootstrapSwitch('state',false); }
 										if(!API.Helper.isSet(dataset.output.settings,[thisplugin,'build'])||dataset.output.settings[thisplugin].build < manifest.build){
