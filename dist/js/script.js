@@ -70,6 +70,9 @@ API.Plugins.plugins = {
 										$('[data-key='+thisplugin+'][data-action="uninstall"]').show();
 										$('[data-key='+thisplugin+'][data-status]').show();
 										$('[data-key='+thisplugin+'][data-toggle-status]').show();
+										if(API.Helper.isSet(API,['Contents','Settings','plugins',thisplugin,'status'])){
+											$('input[type="checkbox"][data-key='+thisplugin+']').bootstrapSwitch('state',dataset.output.settings[thisplugin].status);
+										} else { $('input[type="checkbox"][data-key='+thisplugin+']').bootstrapSwitch('state',false); }
 										if(!API.Helper.isSet(dataset.output.settings,[thisplugin,'build'])||dataset.output.settings[thisplugin].build < manifest.build){
 											$('[data-key='+thisplugin+'][data-action="update"]').show();
 										}
@@ -80,7 +83,7 @@ API.Plugins.plugins = {
 									thisplugin = this.url.substring(this.url.indexOf("appmaker-") + 9).split('/')[0];
 									$('[data-key='+thisplugin+'][data-action="install"]').hide();
 								}
-							})
+							});
 						}
 						content.find('input#plugin_search').on('input',function(){
 							if($(this).val() != ''){
@@ -122,9 +125,6 @@ API.Plugins.plugins = {
 									API.request('plugins','status',{data:{plugin:$(this).attr('data-key'),state:state}});
 								}
 							});
-							if(API.Helper.isSet(API,['Contents','Settings','plugins',$(this).attr('data-key'),'status'])){
-								$(this).bootstrapSwitch('state',dataset.output.settings[$(this).attr('data-key')].status);
-							} else { $(this).bootstrapSwitch('state',false); }
 						});
 					});
 				}
