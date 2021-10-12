@@ -63,6 +63,7 @@ API.Plugins.plugins = {
 									thisplugin = this.url.substring(this.url.indexOf("appmaker-") + 9).split('/')[0];
 									var manifest = JSON.parse(data);
 									if(API.Helper.isSet(API,['Contents','Settings','plugins',thisplugin])){
+										$('[data-key='+thisplugin+'][data-action="install"]').hide();
 										$('[data-key='+thisplugin+'][data-action="uninstall"]').show();
 										$('[data-key='+thisplugin+'][data-status]').show();
 										$('[data-key='+thisplugin+'][data-toggle-status]').show();
@@ -74,7 +75,13 @@ API.Plugins.plugins = {
 											$('[data-key='+thisplugin+'][data-action="update"]').show();
 										}
 									}
-									else { $('[data-key='+thisplugin+'][data-action="install"]').show(); }
+									else {
+										$('[data-key='+thisplugin+'][data-action="install"]').show();
+										$('[data-key='+thisplugin+'][data-action="uninstall"]').hide();
+										$('[data-key='+thisplugin+'][data-status]').hide();
+										$('[data-key='+thisplugin+'][data-toggle-status]').hide();
+										$('[data-key='+thisplugin+'][data-action="update"]').hide();
+									}
 				        },
 								error: function(){
 									thisplugin = this.url.substring(this.url.indexOf("appmaker-") + 9).split('/')[0];
