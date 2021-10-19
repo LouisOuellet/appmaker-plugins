@@ -137,7 +137,6 @@ API.Plugins.plugins = {
 								$('input[type="checkbox"][data-key="'+$(this).attr('data-key')+'"]').bootstrapSwitch({
 									state:dataset.output.settings[$(this).attr('data-key')].status,
 									onSwitchChange:function(e,state){
-										console.log($(this).attr('data-key') + "Triggered");
 										dataset.output.settings[$(this).attr('data-key')].status = state;
 										API.request('plugins','status',{data:{plugin:$(this).attr('data-key'),state:state}});
 									}
@@ -146,7 +145,6 @@ API.Plugins.plugins = {
 								$('input[type="checkbox"][data-key="'+$(this).attr('data-key')+'"]').bootstrapSwitch({
 									state:false,
 									onSwitchChange:function(e,state){
-										console.log($(this).attr('data-key') + "Triggered");
 										dataset.output.settings[$(this).attr('data-key')].status = state;
 										API.request('plugins','status',{data:{plugin:$(this).attr('data-key'),state:state}});
 									}
