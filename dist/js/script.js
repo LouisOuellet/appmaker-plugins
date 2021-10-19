@@ -86,6 +86,10 @@ API.Plugins.plugins = {
 								error: function(){
 									thisplugin = this.url.substring(this.url.indexOf("appmaker-") + 9).split('/')[0];
 									$('[data-key='+thisplugin+'][data-action="install"]').hide();
+									$('[data-key='+thisplugin+'][data-action="uninstall"]').hide();
+									$('[data-key='+thisplugin+'][data-status]').hide();
+									$('[data-key='+thisplugin+'][data-toggle-status]').hide();
+									$('[data-key='+thisplugin+'][data-action="update"]').hide();
 								}
 							});
 						}
@@ -128,6 +132,7 @@ API.Plugins.plugins = {
 							}
 						});
 						content.find('input[type="checkbox"]').each(function(){
+							console.log($(this).attr('data-key'));
 							if(API.Helper.isSet(API,['Contents','Settings','plugins',$(this).attr('data-key'),'status'])){
 								$('input[type="checkbox"][data-key="'+$(this).attr('data-key')+'"]').prop( "checked",dataset.output.settings[$(this).attr('data-key')].status);
 								$('input[type="checkbox"][data-key="'+$(this).attr('data-key')+'"]').bootstrapSwitch('state',dataset.output.settings[$(this).attr('data-key')].status);
