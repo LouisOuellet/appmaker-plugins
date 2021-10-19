@@ -134,15 +134,24 @@ API.Plugins.plugins = {
 						content.find('input[type="checkbox"]').each(function(){
 							if(API.Helper.isSet(API,['Contents','Settings','plugins',$(this).attr('data-key'),'status'])){
 								$('input[type="checkbox"][data-key="'+$(this).attr('data-key')+'"]').prop( "checked",dataset.output.settings[$(this).attr('data-key')].status);
-								$('input[type="checkbox"][data-key="'+$(this).attr('data-key')+'"]').bootstrapSwitch('state',dataset.output.settings[$(this).attr('data-key')].status);
-							} else { $('input[type="checkbox"][data-key="'+$(this).attr('data-key')+'"]').bootstrapSwitch('state',false); }
-							$(this).bootstrapSwitch({
-								onSwitchChange:function(e,state){
-									console.log($(this).attr('data-key') + "Triggered");
-									dataset.output.settings[$(this).attr('data-key')].status = state;
-									API.request('plugins','status',{data:{plugin:$(this).attr('data-key'),state:state}});
-								}
-							});
+								$('input[type="checkbox"][data-key="'+$(this).attr('data-key')+'"]').bootstrapSwitch({
+									state:dataset.output.settings[$(this).attr('data-key')].status,
+									onSwitchChange:function(e,state){
+										console.log($(this).attr('data-key') + "Triggered");
+										dataset.output.settings[$(this).attr('data-key')].status = state;
+										API.request('plugins','status',{data:{plugin:$(this).attr('data-key'),state:state}});
+									}
+								});
+							} else {
+								$('input[type="checkbox"][data-key="'+$(this).attr('data-key')+'"]').bootstrapSwitch({
+									state:false,
+									onSwitchChange:function(e,state){
+										console.log($(this).attr('data-key') + "Triggered");
+										dataset.output.settings[$(this).attr('data-key')].status = state;
+										API.request('plugins','status',{data:{plugin:$(this).attr('data-key'),state:state}});
+									}
+								});
+							}
 						});
 					});
 				}
