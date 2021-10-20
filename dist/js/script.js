@@ -139,18 +139,21 @@ API.Plugins.plugins = {
 								$(this).bootstrapSwitch({
 									state:dataset.output.settings[plugin].status,
 									onSwitchChange:function(e,state){
-										console.log(e);
-										dataset.output.settings[plugin].status = state;
-										API.request('plugins','status',{data:{plugin:plugin,state:state}});
+										plugin = e.target.attr('data-key');
+										console.log(plugin);
+										// dataset.output.settings[plugin].status = state;
+										// API.request('plugins','status',{data:{plugin:plugin,state:state}});
 									}
 								});
 							} else {
 								$(this).bootstrapSwitch({
 									state:false,
 									onSwitchChange:function(e,state){
+										plugin = e.target.attr('data-key');
 										console.log(e);
-										dataset.output.settings[plugin].status = state;
-										API.request('plugins','status',{data:{plugin:plugin,state:state}});
+										console.log(plugin);
+										// dataset.output.settings[plugin].status = state;
+										// API.request('plugins','status',{data:{plugin:plugin,state:state}});
 									}
 								});
 							}
