@@ -132,21 +132,22 @@ API.Plugins.plugins = {
 							}
 						});
 						content.find('input[type="checkbox"]').each(function(){
-							if(API.Helper.isSet(API,['Contents','Settings','plugins',$(this).attr('data-key'),'status'])){
-								$('input[type="checkbox"][data-key="'+$(this).attr('data-key')+'"]').prop( "checked",dataset.output.settings[$(this).attr('data-key')].status);
-								$('input[type="checkbox"][data-key="'+$(this).attr('data-key')+'"]').bootstrapSwitch({
-									state:dataset.output.settings[$(this).attr('data-key')].status,
+							plugin = $(this).attr('data-key');
+							if(API.Helper.isSet(API,['Contents','Settings','plugins',plugin,'status'])){
+								$('input[type="checkbox"][data-key="'+plugin+'"]').prop( "checked",dataset.output.settings[plugin].status);
+								$(this).bootstrapSwitch({
+									state:dataset.output.settings[plugin].status,
 									onSwitchChange:function(e,state){
-										dataset.output.settings[$(this).attr('data-key')].status = state;
-										API.request('plugins','status',{data:{plugin:$(this).attr('data-key'),state:state}});
+										dataset.output.settings[plugin].status = state;
+										API.request('plugins','status',{data:{plugin:plugin,state:state}});
 									}
 								});
 							} else {
-								$('input[type="checkbox"][data-key="'+$(this).attr('data-key')+'"]').bootstrapSwitch({
+								$(this).bootstrapSwitch({
 									state:false,
 									onSwitchChange:function(e,state){
-										dataset.output.settings[$(this).attr('data-key')].status = state;
-										API.request('plugins','status',{data:{plugin:$(this).attr('data-key'),state:state}});
+										dataset.output.settings[plugin].status = state;
+										API.request('plugins','status',{data:{plugin:plugin,state:state}});
 									}
 								});
 							}
