@@ -140,7 +140,6 @@ API.Plugins.plugins = {
 									state:dataset.output.settings[plugin].status,
 									onSwitchChange:function(e,state){
 										plugin = $(this).attr('data-key');
-										dataset.output.settings[plugin].status = state;
 										API.request('plugins','status',{data:{plugin:plugin,state:state}});
 									}
 								});
@@ -149,7 +148,6 @@ API.Plugins.plugins = {
 									state:false,
 									onSwitchChange:function(e,state){
 										plugin = $(this).attr('data-key');
-										dataset.output.settings[plugin].status = state;
 										API.request('plugins','status',{data:{plugin:plugin,state:state}});
 									}
 								});
