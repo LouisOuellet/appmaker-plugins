@@ -120,6 +120,7 @@ API.Plugins.plugins = {
 											$('[data-key='+json.data.plugin+'][data-action="uninstall"]').hide();
 											$('[data-key='+json.data.plugin+'][data-status]').hide();
 											$('[data-key='+json.data.plugin+'][data-toggle-status]').hide();
+											$('[data-key='+json.data.plugin+'][data-action="update"]').hide();
 										}
 									});
 									break;
