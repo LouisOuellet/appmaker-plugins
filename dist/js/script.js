@@ -105,7 +105,7 @@ API.Plugins.plugins = {
 									API.request('plugins',$(this).attr('data-action'),{data:{plugin:$(this).attr('data-key')}},function(result){
 										json = JSON.parse(result);
 										if(json.success != undefined){
-											$.getScript('/plugins/'+plugin+'/dist/js/script.js');
+											$.getScript('/plugins/'+json.data.plugin+'/dist/js/script.js');
 											$('[data-key='+json.data.plugin+'][data-action="install"]').hide();
 											$('[data-key='+json.data.plugin+'][data-action="uninstall"]').show();
 											$('[data-key='+json.data.plugin+'][data-status]').show();
@@ -117,9 +117,9 @@ API.Plugins.plugins = {
 									API.request('plugins',$(this).attr('data-action'),{data:{plugin:$(this).attr('data-key')}},function(result){
 										json = JSON.parse(result);
 										if(json.success != undefined){
-											if(API.Helper.isSet(API.Plugins,[plugin,'unload'])&&(typeof API.Plugins[plugin].unload === 'function')){ API.Plugins[plugin].unload(); }
-											$('a[href^="?p='+plugin+'"]').remove();
-											delete API.Plugins[plugin];
+											if(API.Helper.isSet(API.Plugins,[json.data.plugin,'unload'])&&(typeof API.Plugins[json.data.plugin].unload === 'function')){ API.Plugins[json.data.plugin].unload(); }
+											$('a[href^="?p='+json.data.plugin+'"]').remove();
+											delete API.Plugins[json.data.plugin];
 											$('[data-key='+json.data.plugin+'][data-action="install"]').show();
 											$('[data-key='+json.data.plugin+'][data-action="uninstall"]').hide();
 											$('[data-key='+json.data.plugin+'][data-status]').hide();
