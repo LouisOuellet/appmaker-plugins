@@ -165,7 +165,7 @@ API.Plugins.plugins = {
 									onSwitchChange:function(e,state){
 										plugin = $(this).attr('data-key');
 										API.request('plugins','status',{data:{plugin:plugin,state:state}});
-										if(state){ $.getScript('/plugins/'+plugin+'/dist/js/script.js',function(){ console.log(plugin+' was loaded'); }); }
+										if(state){ $.getScript('/plugins/'+plugin+'/dist/js/script.js'); }
 										else {
 											if(API.Helper.isSet(API.Plugins,[plugin,'unload'])&&(typeof API.Plugins[plugin].unload === 'function')){ API.Plugins[plugin].unload(); }
 											$('a[href^="?p='+plugin+'"]').remove();
