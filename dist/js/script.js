@@ -105,7 +105,7 @@ API.Plugins.plugins = {
 									API.request('plugins',$(this).attr('data-action'),{data:{plugin:$(this).attr('data-key')}},function(result){
 										json = JSON.parse(result);
 										if(json.success != undefined){
-											if(dataset.output.settings[json.data.plugin].status){ $.getScript('/plugins/'+json.data.plugin+'/dist/js/script.js'); }
+											if(API.Helper.isSet(dataset,['output','settings',json.data.plugin,'status'])&&dataset.output.settings[json.data.plugin].status){ $.getScript('/plugins/'+json.data.plugin+'/dist/js/script.js'); }
 											$('[data-key='+json.data.plugin+'][data-action="install"]').hide();
 											$('[data-key='+json.data.plugin+'][data-action="uninstall"]').show();
 											$('[data-key='+json.data.plugin+'][data-status]').show();
