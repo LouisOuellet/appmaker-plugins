@@ -131,7 +131,7 @@ API.Plugins.plugins = {
 											if(API.Helper.isSet(API.Plugins,[plugin,'unload'])&&(typeof API.Plugins[plugin].unload === 'function')){ API.Plugins[plugin].unload(); }
 											$('a[href^="?p='+plugin+'"]').remove();
 											delete API.Plugins[plugin];
-											if(state){ $.getScript('/plugins/'+plugin+'/dist/js/script.js',function(){ console.log(plugin+' was loaded'); }); }
+											$.getScript('/plugins/'+plugin+'/dist/js/script.js',function(){ console.log(plugin+' was loaded'); });
 											$('[data-key='+json.data.plugin+'][data-action="update"]').hide();
 										}
 									});
