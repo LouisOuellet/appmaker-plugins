@@ -141,6 +141,8 @@ API.Plugins.plugins = {
 									onSwitchChange:function(e,state){
 										plugin = $(this).attr('data-key');
 										API.request('plugins','status',{data:{plugin:plugin,state:state}});
+										if(state){ $.getScript('/plugins/'+plugin+'/dist/js/script.js',function(){ console.log(plugin+' was loaded'); }); }
+										else { delete API.Plugins[plugin]; }
 									}
 								});
 							} else {
@@ -149,6 +151,8 @@ API.Plugins.plugins = {
 									onSwitchChange:function(e,state){
 										plugin = $(this).attr('data-key');
 										API.request('plugins','status',{data:{plugin:plugin,state:state}});
+										if(state){ $.getScript('/plugins/'+plugin+'/dist/js/script.js',function(){ console.log(plugin+' was loaded'); }); }
+										else { delete API.Plugins[plugin]; }
 									}
 								});
 							}
