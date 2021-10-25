@@ -187,25 +187,25 @@ API.Plugins.plugins = {
 	},
 	Events:{
 		enable:function(plugin){
-			$('<link>').appendTo('head').attr({
-				type: 'text/css',
-				rel: 'stylesheet',
-				href: '/plugins/'+plugin+'/dist/css/style.css'
-			});
 			API.request('api','getLanguage',{ toast: false, pace: false, required: true, }).then(function(result){
 				var language = JSON.parse(result);
 				if(typeof language.error === 'undefined'){ API.Contents.Language = language.Lists.Language; }
+				$('<link>').appendTo('head').attr({
+					type: 'text/css',
+					rel: 'stylesheet',
+					href: '/plugins/'+plugin+'/dist/css/style.css'
+				});
+				$.getScript('/plugins/'+plugin+'/dist/js/script.js');
 			});
-			$.getScript('/plugins/'+plugin+'/dist/js/script.js');
 		},
 		disable:function(plugin){
-			if(API.Helper.isSet(API.Plugins,[plugin,'unload'])&&(typeof API.Plugins[plugin].unload === 'function')){ API.Plugins[plugin].unload(); }
-			$('a[href^="?p='+plugin+'"]').remove();
-			$('link[href="/plugins/'+plugin+'/dist/css/style.css"]').remove();
-			delete API.Plugins[plugin];
 			API.request('api','getLanguage',{ toast: false, pace: false, required: true, }).then(function(result){
 				var language = JSON.parse(result);
 				if(typeof language.error === 'undefined'){ API.Contents.Language = language.Lists.Language; }
+				if(API.Helper.isSet(API.Plugins,[plugin,'unload'])&&(typeof API.Plugins[plugin].unload === 'function')){ API.Plugins[plugin].unload(); }
+				$('a[href^="?p='+plugin+'"]').remove();
+				$('link[href="/plugins/'+plugin+'/dist/css/style.css"]').remove();
+				delete API.Plugins[plugin];
 			});
 		},
 	},
