@@ -7,5 +7,6 @@
 		"Plugin was installed": "Plugin was installed",
 		"Plugin was uninstalled": "Plugin was uninstalled",
 		"Unable to install plugin": "Unable to install plugin",
-		"Unable to uninstall plugin": "Unable to uninstall plugin"
+		"Unable to uninstall plugin": "Unable to uninstall plugin",
+		"Update All": "Update All"
 }

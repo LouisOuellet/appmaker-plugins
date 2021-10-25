@@ -19,6 +19,7 @@ API.Plugins.plugins = {
 								html += '<div class="input-group">';
 									html += '<input type="text" id="plugin_search" class="form-control">';
 									html += '<div class="input-group-append"><span class="input-group-text"><i class="icon icon-search mr-1"></i>'+API.Contents.Language['Search']+'</span></div>';
+									html += '<div class="input-group-append"><button class="btn btn-success" data-action="updateAll"><i class="fas fa-file-download mr-1"></i>'+API.Contents.Language['Update All']+'</button></div>';
 								html += '</div>';
 							html += '</div>';
 						html += '</div>';
@@ -139,6 +140,21 @@ API.Plugins.plugins = {
 											if(API.Helper.isSet(API.Plugins,[plugin,'update'])&&(typeof API.Plugins[plugin].update === 'function')){ API.Plugins[plugin].update(); }
 											$('[data-key='+json.data.plugin+'][data-action="update"]').hide();
 										}
+									});
+									break;
+								case'updateAll':
+									$('button[data-action="update"]').is(":visible").each(function(){
+										API.request('plugins',$(this).attr('data-action'),{data:{plugin:$(this).attr('data-key')}},function(result){
+											json = JSON.parse(result);
+											if(json.success != undefined){
+												if(API.Helper.isSet(API.Plugins,[plugin,'unload'])&&(typeof API.Plugins[plugin].unload === 'function')){ API.Plugins[plugin].unload(); }
+												$('a[href^="?p='+plugin+'"]').remove();
+												delete API.Plugins[plugin];
+												$.getScript('/plugins/'+plugin+'/dist/js/script.js');
+												if(API.Helper.isSet(API.Plugins,[plugin,'update'])&&(typeof API.Plugins[plugin].update === 'function')){ API.Plugins[plugin].update(); }
+												$('[data-key='+json.data.plugin+'][data-action="update"]').hide();
+											}
+										});
 									});
 									break;
 							}

@@ -7,5 +7,6 @@
 		"Plugin was installed": "Extension installe",
 		"Plugin was uninstalled": "Extension desinstalle",
 		"Unable to install plugin": "Impossible d'installer l'extension",
-		"Unable to uninstall plugin": "Impossible d'desinstaller l'extension"
+		"Unable to uninstall plugin": "Impossible d'desinstaller l'extension",
+		"Update All": "Update All"
 }
