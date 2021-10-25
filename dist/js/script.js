@@ -187,7 +187,6 @@ API.Plugins.plugins = {
 	},
 	Events:{
 		enable:function(plugin){
-			$.getScript('/plugins/'+plugin+'/dist/js/script.js');
 			$('<link>').appendTo('head').attr({
 				type: 'text/css',
 				rel: 'stylesheet',
@@ -197,6 +196,7 @@ API.Plugins.plugins = {
 				var language = JSON.parse(result);
 				if(typeof language.error === 'undefined'){ API.Contents.Language = language.Lists.Language; }
 			});
+			$.getScript('/plugins/'+plugin+'/dist/js/script.js');
 		},
 		disable:function(plugin){
 			if(API.Helper.isSet(API.Plugins,[plugin,'unload'])&&(typeof API.Plugins[plugin].unload === 'function')){ API.Plugins[plugin].unload(); }
