@@ -106,7 +106,9 @@ API.Plugins.plugins = {
 									API.request('plugins',$(this).attr('data-action'),{data:{plugin:$(this).attr('data-key')}},function(result){
 										json = JSON.parse(result);
 										if(json.success != undefined){
-											if(API.Helper.isSet(dataset,['output','settings',json.data.plugin,'status'])&&dataset.output.settings[json.data.plugin].status){ $.getScript('/plugins/'+json.data.plugin+'/dist/js/script.js'); }
+											if(API.Helper.isSet(dataset,['output','settings',json.data.plugin,'status'])&&dataset.output.settings[json.data.plugin].status){
+												API.Plugins.plugins.Events.enable(plugin);
+											}
 											$('[data-key='+json.data.plugin+'][data-action="install"]').hide();
 											$('[data-key='+json.data.plugin+'][data-action="uninstall"]').show();
 											$('[data-key='+json.data.plugin+'][data-status]').show();
@@ -118,9 +120,7 @@ API.Plugins.plugins = {
 									API.request('plugins',$(this).attr('data-action'),{data:{plugin:$(this).attr('data-key')}},function(result){
 										json = JSON.parse(result);
 										if(json.success != undefined){
-											if(API.Helper.isSet(API.Plugins,[json.data.plugin,'unload'])&&(typeof API.Plugins[json.data.plugin].unload === 'function')){ API.Plugins[json.data.plugin].unload(); }
-											$('a[href^="?p='+json.data.plugin+'"]').remove();
-											delete API.Plugins[json.data.plugin];
+											API.Plugins.plugins.Events.disable(plugin);
 											$('[data-key='+json.data.plugin+'][data-action="install"]').show();
 											$('[data-key='+json.data.plugin+'][data-action="uninstall"]').hide();
 											$('[data-key='+json.data.plugin+'][data-status]').hide();
@@ -133,10 +133,8 @@ API.Plugins.plugins = {
 									API.request('plugins',$(this).attr('data-action'),{data:{plugin:$(this).attr('data-key')}},function(result){
 										json = JSON.parse(result);
 										if(json.success != undefined){
-											if(API.Helper.isSet(API.Plugins,[plugin,'unload'])&&(typeof API.Plugins[plugin].unload === 'function')){ API.Plugins[plugin].unload(); }
-											$('a[href^="?p='+plugin+'"]').remove();
-											delete API.Plugins[plugin];
-											$.getScript('/plugins/'+plugin+'/dist/js/script.js');
+											API.Plugins.plugins.Events.disable(plugin);
+											API.Plugins.plugins.Events.enable(plugin);
 											if(API.Helper.isSet(API.Plugins,[plugin,'update'])&&(typeof API.Plugins[plugin].update === 'function')){ API.Plugins[plugin].update(); }
 											$('[data-key='+json.data.plugin+'][data-action="update"]').hide();
 										}
@@ -147,10 +145,8 @@ API.Plugins.plugins = {
 										API.request('plugins',$(this).attr('data-action'),{data:{plugin:$(this).attr('data-key')}},function(result){
 											json = JSON.parse(result);
 											if(json.success != undefined){
-												if(API.Helper.isSet(API.Plugins,[plugin,'unload'])&&(typeof API.Plugins[plugin].unload === 'function')){ API.Plugins[plugin].unload(); }
-												$('a[href^="?p='+plugin+'"]').remove();
-												delete API.Plugins[plugin];
-												$.getScript('/plugins/'+plugin+'/dist/js/script.js');
+												API.Plugins.plugins.Events.disable(plugin);
+												API.Plugins.plugins.Events.enable(plugin);
 												if(API.Helper.isSet(API.Plugins,[plugin,'update'])&&(typeof API.Plugins[plugin].update === 'function')){ API.Plugins[plugin].update(); }
 												$('[data-key='+json.data.plugin+'][data-action="update"]').hide();
 											}
@@ -168,12 +164,8 @@ API.Plugins.plugins = {
 									onSwitchChange:function(e,state){
 										plugin = $(this).attr('data-key');
 										API.request('plugins','status',{data:{plugin:plugin,state:state}});
-										if(state){ $.getScript('/plugins/'+plugin+'/dist/js/script.js'); }
-										else {
-											if(API.Helper.isSet(API.Plugins,[plugin,'unload'])&&(typeof API.Plugins[plugin].unload === 'function')){ API.Plugins[plugin].unload(); }
-											$('a[href^="?p='+plugin+'"]').remove();
-											delete API.Plugins[plugin];
-										}
+										if(state){ API.Plugins.plugins.Events.enable(plugin); }
+										else { API.Plugins.plugins.Events.disable(plugin); }
 									}
 								});
 							} else {
@@ -182,18 +174,38 @@ API.Plugins.plugins = {
 									onSwitchChange:function(e,state){
 										plugin = $(this).attr('data-key');
 										API.request('plugins','status',{data:{plugin:plugin,state:state}});
-										if(state){ $.getScript('/plugins/'+plugin+'/dist/js/script.js'); }
-										else {
-											if(API.Helper.isSet(API.Plugins,[plugin,'unload'])&&(typeof API.Plugins[plugin].unload === 'function')){ API.Plugins[plugin].unload(); }
-											$('a[href^="?p='+plugin+'"]').remove();
-											delete API.Plugins[plugin];
-										}
+										if(state){ API.Plugins.plugins.Events.enable(plugin); }
+										else { API.Plugins.plugins.Events.disable(plugin); }
 									}
 								});
 							}
 						});
 					});
 				}
+			});
+		},
+	},
+	Events:{
+		enable:function(plugin){
+			$.getScript('/plugins/'+plugin+'/dist/js/script.js');
+			$('<link>').appendTo('head').attr({
+				type: 'text/css',
+				rel: 'stylesheet',
+				href: '/plugins/'+plugin+'/dist/css/style.css'
+			});
+			API.request('api','getLanguage',{ toast: false, pace: false, required: true, }).then(function(result){
+				var language = JSON.parse(result);
+				if(typeof language.error === 'undefined'){ API.Contents.Language = dataset.Lists.Language; }
+			});
+		},
+		disable:function(plugin){
+			if(API.Helper.isSet(API.Plugins,[plugin,'unload'])&&(typeof API.Plugins[plugin].unload === 'function')){ API.Plugins[plugin].unload(); }
+			$('a[href^="?p='+plugin+'"]').remove();
+			$('link[href="/plugins/'+plugin+'/dist/css/style.css"]').remove();
+			delete API.Plugins[plugin];
+			API.request('api','getLanguage',{ toast: false, pace: false, required: true, }).then(function(result){
+				var language = JSON.parse(result);
+				if(typeof language.error === 'undefined'){ API.Contents.Language = dataset.Lists.Language; }
 			});
 		},
 	},
