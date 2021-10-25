@@ -193,7 +193,7 @@ API.Plugins.plugins = {
 				$('<link>').appendTo('head').attr({
 					type: 'text/css',
 					rel: 'stylesheet',
-					href: '/plugins/'+plugin+'/dist/css/style.css'
+					href: '/plugins/'+plugin+'/dist/css/styles.css'
 				});
 				$.getScript('/plugins/'+plugin+'/dist/js/script.js');
 			});
@@ -204,7 +204,7 @@ API.Plugins.plugins = {
 				if(typeof language.error === 'undefined'){ API.Contents.Language = language.Lists.Language; }
 				if(API.Helper.isSet(API.Plugins,[plugin,'unload'])&&(typeof API.Plugins[plugin].unload === 'function')){ API.Plugins[plugin].unload(); }
 				$('a[href^="?p='+plugin+'"]').remove();
-				$('link[href="/plugins/'+plugin+'/dist/css/style.css"]').remove();
+				$('link[href="/plugins/'+plugin+'/dist/css/styles.css"]').remove();
 				delete API.Plugins[plugin];
 			});
 		},
