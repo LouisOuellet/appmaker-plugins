@@ -195,7 +195,7 @@ API.Plugins.plugins = {
 			});
 			API.request('api','getLanguage',{ toast: false, pace: false, required: true, }).then(function(result){
 				var language = JSON.parse(result);
-				if(typeof language.error === 'undefined'){ API.Contents.Language = dataset.Lists.Language; }
+				if(typeof language.error === 'undefined'){ API.Contents.Language = language.Lists.Language; }
 			});
 		},
 		disable:function(plugin){
@@ -205,7 +205,7 @@ API.Plugins.plugins = {
 			delete API.Plugins[plugin];
 			API.request('api','getLanguage',{ toast: false, pace: false, required: true, }).then(function(result){
 				var language = JSON.parse(result);
-				if(typeof language.error === 'undefined'){ API.Contents.Language = dataset.Lists.Language; }
+				if(typeof language.error === 'undefined'){ API.Contents.Language = language.Lists.Language; }
 			});
 		},
 	},
