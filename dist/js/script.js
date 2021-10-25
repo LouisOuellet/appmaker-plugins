@@ -143,7 +143,7 @@ API.Plugins.plugins = {
 									});
 									break;
 								case'updateAll':
-									$('button[data-action="update"]').is(":visible").each(function(){
+									$('button[data-action="update"]:visible').each(function(){
 										API.request('plugins',$(this).attr('data-action'),{data:{plugin:$(this).attr('data-key')}},function(result){
 											json = JSON.parse(result);
 											if(json.success != undefined){
