@@ -107,7 +107,7 @@ API.Plugins.plugins = {
 										json = JSON.parse(result);
 										if(json.success != undefined){
 											if(API.Helper.isSet(dataset,['output','settings',json.data.plugin,'status'])&&dataset.output.settings[json.data.plugin].status){
-												API.Plugins.plugins.Events.enable(plugin);
+												API.Plugins.plugins.Events.enable(json.data.plugin);
 											}
 											$('[data-key='+json.data.plugin+'][data-action="install"]').hide();
 											$('[data-key='+json.data.plugin+'][data-action="uninstall"]').show();
@@ -120,7 +120,7 @@ API.Plugins.plugins = {
 									API.request('plugins',$(this).attr('data-action'),{data:{plugin:$(this).attr('data-key')}},function(result){
 										json = JSON.parse(result);
 										if(json.success != undefined){
-											API.Plugins.plugins.Events.disable(plugin);
+											API.Plugins.plugins.Events.disable(json.data.plugin);
 											$('[data-key='+json.data.plugin+'][data-action="install"]').show();
 											$('[data-key='+json.data.plugin+'][data-action="uninstall"]').hide();
 											$('[data-key='+json.data.plugin+'][data-status]').hide();
@@ -133,8 +133,8 @@ API.Plugins.plugins = {
 									API.request('plugins',$(this).attr('data-action'),{data:{plugin:$(this).attr('data-key')}},function(result){
 										json = JSON.parse(result);
 										if(json.success != undefined){
-											API.Plugins.plugins.Events.disable(plugin);
-											API.Plugins.plugins.Events.enable(plugin);
+											API.Plugins.plugins.Events.disable(json.data.plugin);
+											API.Plugins.plugins.Events.enable(json.data.plugin);
 											if(API.Helper.isSet(API.Plugins,[plugin,'update'])&&(typeof API.Plugins[plugin].update === 'function')){ API.Plugins[plugin].update(); }
 											$('[data-key='+json.data.plugin+'][data-action="update"]').hide();
 										}
@@ -145,8 +145,8 @@ API.Plugins.plugins = {
 										API.request('plugins',$(this).attr('data-action'),{data:{plugin:$(this).attr('data-key')}},function(result){
 											json = JSON.parse(result);
 											if(json.success != undefined){
-												API.Plugins.plugins.Events.disable(plugin);
-												API.Plugins.plugins.Events.enable(plugin);
+												API.Plugins.plugins.Events.disable(json.data.plugin);
+												API.Plugins.plugins.Events.enable(json.data.plugin);
 												if(API.Helper.isSet(API.Plugins,[plugin,'update'])&&(typeof API.Plugins[plugin].update === 'function')){ API.Plugins[plugin].update(); }
 												$('[data-key='+json.data.plugin+'][data-action="update"]').hide();
 											}
