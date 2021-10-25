@@ -163,9 +163,10 @@ API.Plugins.plugins = {
 									state:dataset.output.settings[plugin].status,
 									onSwitchChange:function(e,state){
 										plugin = $(this).attr('data-key');
-										API.request('plugins','status',{data:{plugin:plugin,state:state}});
-										if(state){ API.Plugins.plugins.Events.enable(plugin); }
-										else { API.Plugins.plugins.Events.disable(plugin); }
+										API.request('plugins','status',{data:{plugin:plugin,state:state}},function(){
+											if(state){ API.Plugins.plugins.Events.enable(plugin); }
+											else { API.Plugins.plugins.Events.disable(plugin); }
+										});
 									}
 								});
 							} else {
@@ -173,9 +174,10 @@ API.Plugins.plugins = {
 									state:false,
 									onSwitchChange:function(e,state){
 										plugin = $(this).attr('data-key');
-										API.request('plugins','status',{data:{plugin:plugin,state:state}});
-										if(state){ API.Plugins.plugins.Events.enable(plugin); }
-										else { API.Plugins.plugins.Events.disable(plugin); }
+										API.request('plugins','status',{data:{plugin:plugin,state:state}},function(){
+											if(state){ API.Plugins.plugins.Events.enable(plugin); }
+											else { API.Plugins.plugins.Events.disable(plugin); }
+										});
 									}
 								});
 							}
