@@ -4,6 +4,7 @@ class pluginsAPI extends API {
   public function get($request, $data){
 		if(isset($data)){
 			if(!is_array($data)){ $data = json_decode($data, true); }
+      var_dump(sort($this->Plugins));
       return [
         "success" => $this->Language->Field["This request was successfull"],
         "request" => $request,
