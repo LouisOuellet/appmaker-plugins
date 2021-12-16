@@ -9,7 +9,7 @@ class pluginsAPI extends API {
         "request" => $request,
         "data" => $data,
 				"output" => [
-					'plugins' => $this->Plugins,
+					'plugins' => sort($this->Plugins),
 					'settings' => $this->Settings['plugins'],
 				],
       ];

@@ -1,6 +1,6 @@
 {
-    "build": 195,
-    "version": "21.11-dev",
+    "build": 196,
+    "version": "21.12-dev",
     "name": "plugins",
     "repository": {
         "name": "appmaker-plugins",
