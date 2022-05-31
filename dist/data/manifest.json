@@ -1,10 +1,10 @@
 {
-    "build": 207,
-    "version": "22.05-pre-release",
+    "build": 208,
+    "version": "22.05-dev",
     "name": "plugins",
     "repository": {
         "name": "appmaker-plugins",
-        "branch": "pre-release",
+        "branch": "dev",
         "host": {
             "git": "https:\/\/github.com\/LouisOuellet\/",
             "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
